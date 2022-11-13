@@ -1,0 +1,4 @@
+hello	xin chao
+hi	hi
+dog	cho
+cat	meo
