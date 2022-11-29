@@ -2,3 +2,8 @@ hello	xin chao
 hi	hi
 dog	cho
 cat	meo
+hat	mu
+hair	toc
+head	dau
+hockey	khuc con cau
+horror	rung ron

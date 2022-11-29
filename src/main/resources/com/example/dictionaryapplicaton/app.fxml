@@ -8,14 +8,17 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dictionaryapplicaton.DictionaryController">
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dictionaryapplicaton.DictionaryController">
    <children>
-      <TabPane prefHeight="281.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane prefHeight="281.0" prefWidth="549.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="100.0" tabMaxWidth="100.0" tabMinHeight="100.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Search">
+          <Tab>
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="163.0" prefWidth="222.0">
                      <children>
@@ -25,10 +28,13 @@
                                  <children>
                                     <VBox layoutX="-8.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Label minHeight="40.0" text="Dictionary Look up">
+                                          <Label minHeight="40.0" prefHeight="40.0" prefWidth="144.0" text="Dictionary Look up">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                             </font>
                                           </Label>
                                           <TextField fx:id="searchInput" onAction="#lookup" onKeyReleased="#getSearchInput" promptText="Write your word" />
                                           <ListView fx:id="listView" prefHeight="432.0" prefWidth="137.0" VBox.vgrow="ALWAYS" />
@@ -36,13 +42,36 @@
                                     </VBox>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="400.0">
                                  <children>
-                                    <VBox prefHeight="500.0" prefWidth="326.0">
+                                    <VBox prefHeight="600.0" prefWidth="342.0">
                                        <children>
-                                          <Label alignment="CENTER" minHeight="40.0" prefHeight="30.0" prefWidth="116.0" text="English - Vietnamese" />
-                                          <TextArea fx:id="textArea" prefHeight="208.0" prefWidth="215.0" VBox.vgrow="ALWAYS" />
-                                          <Label fx:id="label" prefHeight="17.0" prefWidth="331.0" text="Definition" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" minHeight="40.0" prefHeight="40.0" prefWidth="344.0" text="English - Vietnamese" textAlignment="CENTER">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font></Label>
+                                          <Label prefHeight="65.0" prefWidth="311.0">
+                                             <VBox.margin>
+                                                <Insets left="30.0" right="30.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="label" prefHeight="26.0" prefWidth="326.0" text="Definition" VBox.vgrow="NEVER">
+                                             <VBox.margin>
+                                                <Insets bottom="-90.0" left="30.0" top="30.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font size="25.0" />
+                                             </font></Label>
+                                          <TextArea fx:id="textArea" prefHeight="534.0" prefWidth="380.0" VBox.vgrow="NEVER">
+                                             <VBox.margin>
+                                                <Insets bottom="50.0" left="30.0" right="30.0" top="100.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font></TextArea>
                                        </children>
                                     </VBox>
                                  </children>
@@ -52,8 +81,15 @@
                      </children>
                   </AnchorPane>
             </content>
+               <graphic>
+                  <ImageView fx:id="iconSearch" fitHeight="70.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icon/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
           </Tab>
-          <Tab text="History">
+          <Tab>
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -61,8 +97,15 @@
                      </children>
                   </AnchorPane>
             </content>
+               <graphic>
+                  <ImageView fx:id="iconHistory" fitHeight="99.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icon/history.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
           </Tab>
-            <Tab text="Favourite">
+            <Tab>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -70,8 +113,15 @@
                      </children>
                   </AnchorPane>
                </content>
+               <graphic>
+                  <ImageView fx:id="iconFavourite" fitHeight="74.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icon/favourite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
-            <Tab text="Customize">
+            <Tab>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -107,11 +157,25 @@
                      </children>
                   </AnchorPane>
                </content>
+               <graphic>
+                  <ImageView fx:id="iconEdit" fitHeight="91.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icon/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
-            <Tab text="Reset">
+            <Tab>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
+               <graphic>
+                  <ImageView fx:id="iconSetting" fitHeight="70.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icon/setting.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
         </tabs>
       </TabPane>
