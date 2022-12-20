@@ -1,5 +1,5 @@
 hello	xin chao
-hi	hi
+hi	xin chao
 dog	cho
 cat	meo
 hat	mu
