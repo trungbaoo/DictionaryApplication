@@ -23,6 +23,7 @@ public class DictionaryApplication extends Application {
         Scene scene = new Scene(root, 600,600);
         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 dictionaryManagement.exportHistoryWord();
