@@ -45,6 +45,7 @@
 #iconFavorite{
     -fx-image: url("Icon/favourite.png");
 }
+
 #iconEdit{
     -fx-image: url("Icon/edit.png");
 }
@@ -61,16 +62,13 @@
     -fx-border-width: 0 0 0 0;
 }
 
-/*.toggle-button {*/
-/*    -fx-max-height: 30;*/
-/*    -fx-max-width: 30;*/
-/*    -fx-min-height: 30;*/
-/*    -fx-min-width: 30;*/
-/*    -fx-background-color: inherit;*/
-/*    -fx-background-image: url("Icon/mark.png");*/
-/*    -fx-background-repeat: no-repeat;*/
-/*    -fx-background-position: center;*/
-/*}*/
-/*.toggle-button:selected {*/
-/*    -fx-background-image: url("Icons/mark1.png");*/
-/*}*/
+.toggle-button {
+    /*-fx-background-size: 18px;*/
+    -fx-background-color: inherit;
+    -fx-background-image: url("Icon/inactive.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.toggle-button:selected {
+    -fx-background-image: url("Icon/active.png");
+}

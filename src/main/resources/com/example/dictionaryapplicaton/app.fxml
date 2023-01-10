@@ -9,9 +9,12 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -45,7 +48,7 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="400.0">
                                  <children>
-                                    <VBox prefHeight="600.0" prefWidth="342.0">
+                                    <VBox layoutX="-7.0" layoutY="-1.0" prefHeight="600.0" prefWidth="342.0">
                                        <children>
                                           <Label alignment="CENTER" contentDisplay="CENTER" minHeight="40.0" prefHeight="40.0" prefWidth="344.0" text="English - Vietnamese" textAlignment="CENTER">
                                              <VBox.margin>
@@ -54,11 +57,28 @@
                                              <font>
                                                 <Font name="System Bold" size="20.0" />
                                              </font></Label>
-                                          <Label prefHeight="65.0" prefWidth="311.0">
+                                          <Label fx:id="wordLabel" alignment="CENTER" prefHeight="50.0" prefWidth="282.0">
                                              <VBox.margin>
-                                                <Insets left="30.0" right="30.0" />
+                                                <Insets bottom="15.0" left="30.0" right="30.0" />
                                              </VBox.margin>
+                                             <font>
+                                                <Font size="28.0" />
+                                             </font>
                                           </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Pane prefHeight="34.0" prefWidth="49.0" />
+                                                <Label prefHeight="34.0" prefWidth="75.0" text="Phonetic">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Pane prefHeight="25.0" prefWidth="18.0" />
+                                                <TextField fx:id="searchPhonetic" prefHeight="34.0" prefWidth="153.0" promptText="format: /phonetic/" />
+                                                <ToggleButton fx:id="buttonFavorite" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" />
+                                                <Pane prefHeight="25.0" prefWidth="34.0" />
+                                             </children>
+                                          </HBox>
                                           <Label fx:id="label" prefHeight="26.0" prefWidth="326.0" text="Definition" VBox.vgrow="NEVER">
                                              <VBox.margin>
                                                 <Insets bottom="-90.0" left="30.0" top="30.0" />
@@ -72,7 +92,8 @@
                                              </VBox.margin>
                                              <font>
                                                 <Font size="15.0" />
-                                             </font></TextArea>
+                                             </font>
+                                          </TextArea>
                                        </children>
                                     </VBox>
                                  </children>
@@ -110,7 +131,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="149.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="listViewFavourite" layoutX="114.0" layoutY="234.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -134,7 +155,7 @@
                                        <children>
                                           <Label layoutX="42.0" layoutY="23.0" text="Write your word" />
                                           <Label layoutX="228.0" layoutY="32.0" text="Phonetic" />
-                                          <TextField layoutX="308.0" layoutY="28.0" promptText="format: /phonetic/" />
+                                          <TextField fx:id="addPhonetic" layoutX="308.0" layoutY="28.0" promptText="format: /phonetic/" />
                                           <Label layoutX="228.0" layoutY="98.0" text="Definition" />
                                           <Label fx:id="addStatus" alignment="TOP_LEFT" layoutX="231.0" layoutY="478.0" prefHeight="89.0" prefWidth="224.0" textFill="#eb0404" />
                                           <TextField fx:id="addInput" layoutX="22.0" layoutY="61.0" onKeyReleased="#getAddInput" prefHeight="25.0" prefWidth="138.0" AnchorPane.rightAnchor="333.0" />
@@ -151,7 +172,7 @@
                                        <children>
                                           <Label layoutX="42.0" layoutY="23.0" text="Write your word" />
                                           <Label layoutX="228.0" layoutY="32.0" text="Phonetic" />
-                                          <TextField layoutX="308.0" layoutY="28.0" promptText="format: /phonetic/" />
+                                          <TextField fx:id="removePhonetic" layoutX="308.0" layoutY="28.0" promptText="format: /phonetic/" />
                                           <Label layoutX="228.0" layoutY="98.0" text="Definition" />
                                           <Label fx:id="removeStatus" alignment="TOP_LEFT" layoutX="231.0" layoutY="478.0" prefHeight="89.0" prefWidth="224.0" textFill="#eb0404" />
                                           <TextField fx:id="removeInput" layoutX="22.0" layoutY="61.0" onKeyReleased="#getRemoveInput" prefHeight="25.0" prefWidth="138.0" AnchorPane.rightAnchor="333.0" />
@@ -168,7 +189,7 @@
                                        <children>
                                           <Label layoutX="42.0" layoutY="23.0" text="Write your word" />
                                           <Label layoutX="228.0" layoutY="32.0" text="Phonetic" />
-                                          <TextField layoutX="308.0" layoutY="28.0" promptText="format: /phonetic/" />
+                                          <TextField fx:id="editPhonetic" layoutX="308.0" layoutY="28.0" promptText="format: /phonetic/" />
                                           <Label layoutX="228.0" layoutY="98.0" text="Definition" />
                                           <Label fx:id="editStatus" alignment="TOP_LEFT" layoutX="231.0" layoutY="478.0" prefHeight="89.0" prefWidth="224.0" textFill="#eb0404" />
                                           <TextField fx:id="editInput" layoutX="22.0" layoutY="61.0" onAction="#lookup2" onKeyReleased="#getEditInput" prefHeight="25.0" prefWidth="138.0" AnchorPane.rightAnchor="333.0" />
@@ -194,7 +215,10 @@
             </Tab>
             <Tab>
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="39.0" layoutY="435.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="158.0" text="Save" />
+                     </children></AnchorPane>
                </content>
                <graphic>
                   <ImageView fx:id="iconSetting" fitHeight="70.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">

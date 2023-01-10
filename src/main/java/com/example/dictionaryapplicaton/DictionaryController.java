@@ -20,49 +20,21 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DictionaryController implements Initializable {
-    public ArrayList<String> wordHistory=new ArrayList<>();
-    public ArrayList<String> wordUpdated=new ArrayList<>();
-    private static DictionaryManagement dictionaryManagement = new DictionaryManagement();
+    public static DictionaryManagement dictionaryManagement = new DictionaryManagement();
     @FXML
-    private Button addButton;
+    private Button addButton, editButton, removeButton;
     @FXML
-    private Button editButton;
+    private ToggleButton buttonFavorite;
     @FXML
-    private Button removeButton;
+    private TextField searchInput, addInput, removeInput, editInput;
     @FXML
-    private TextField searchInput;
+    public ListView<String> listViewSearch = new ListView<>(), listViewEdit = new ListView<>(), listViewHistory = new ListView<>(), listViewAdd = new ListView<>(), listViewRemove = new ListView<>(), listViewFavourite = new ListView<>();
     @FXML
-    private TextField addInput;
+    private TextArea definitionSearch = new TextArea(), addDefinition = new TextArea(), removeDefinition = new TextArea(), editDefinition = new TextArea();
     @FXML
-    private TextField removeInput;
+    private Label addStatus, removeStatus, editStatus, wordLabel;
     @FXML
-    private TextField editInput;
-    @FXML
-    private ListView<String> listViewSearch = new ListView<>();
-    @FXML
-    private ListView<String> listViewEdit = new ListView<>();
-    @FXML
-    private Label label = new Label();
-    @FXML
-    private TextArea definitionSearch = new TextArea();
-    @FXML
-    private TextArea addDefinition = new TextArea();
-    @FXML
-    private TextArea removeDefinition = new TextArea();
-    @FXML
-    private TextArea editDefinition = new TextArea();
-    @FXML
-    private ListView<String> listViewHistory = new ListView<>();
-    @FXML
-    private ListView<String> listViewAdd = new ListView<>();
-    @FXML
-    private ListView<String> listViewRemove = new ListView<>();
-    @FXML
-    private Label addStatus;
-    @FXML
-    private Label removeStatus;
-    @FXML
-    private Label editStatus;
+    private TextField addPhonetic, removePhonetic, editPhonetic, searchPhonetic;
 
 
     @FXML
@@ -104,25 +76,54 @@ public class DictionaryController implements Initializable {
         listViewEdit.refresh();
     }
 
+    public void updateHistoryWords(String word) {
+        ArrayList<String> arrayList = dictionaryManagement.getHistoryWords();
+        for (String word1 : arrayList)
+            if (word1.equalsIgnoreCase(word)) {
+                arrayList.remove(word1);
+                break;
+            }
+        arrayList.add(0, word);
+        if (arrayList.size() > 100) arrayList.remove(100);
+        dictionaryManagement.setHistoryWords(arrayList);
+        refreshListViewHistory();
+    }
+
+    public void updateFavouriteWords(String word) {
+        ArrayList<String> arrayList = dictionaryManagement.getFavouriteWords();
+        arrayList.add(0, word);
+        dictionaryManagement.setFavouriteWords(arrayList);
+        refreshListViewFavourite();
+    }
+
+    public void removeFavouriteWords(String word) {
+        ArrayList<String> arrayList = dictionaryManagement.getFavouriteWords();
+        for (String word1 : arrayList)
+            if (word1.equalsIgnoreCase(word)) {
+                arrayList.remove(word1);
+                break;
+            }
+        dictionaryManagement.setFavouriteWords(arrayList);
+        refreshListViewFavourite();
+    }
+
     public void lookup() {
         Word word = dictionaryManagement.dictionaryLookup(searchInput.getText());
         if (word != null) {
             definitionSearch.setText(word.getWordExplain());
-            for (String word1 : listViewHistory.getItems())
-                if (word1.startsWith(word.getWordTarget())) {
-                    listViewHistory.getItems().remove(word1);
-                    break;
-                }
-            listViewHistory.getItems().add(0, word.getWordTarget() + "\n" + word.getWordExplain());
-            if (listViewHistory.getItems().size() > 100) listViewHistory.getItems().remove(100);
+            searchPhonetic.setText(word.getPhonetic());
+            updateHistoryWords(word.getWordTarget());
+            wordLabel.setText(word.getWordTarget());
+            buttonFavorite.setSelected(dictionaryManagement.isFavouriteWords(searchInput.getText()));
         }
-    }
 
+    }
 
     public void lookup1() {
         Word word = dictionaryManagement.dictionaryLookup(removeInput.getText());
         if (word != null) {
             removeDefinition.setText(word.getWordExplain());
+            removePhonetic.setText(word.getPhonetic());
         }
     }
 
@@ -130,12 +131,31 @@ public class DictionaryController implements Initializable {
         Word word = dictionaryManagement.dictionaryLookup(editInput.getText());
         if (word != null) {
             editDefinition.setText(word.getWordExplain());
+            editPhonetic.setText(word.getPhonetic());
+        }
+    }
+
+    public void refreshListViewHistory() {
+        listViewHistory.getItems().clear();
+        for (String s : dictionaryManagement.getHistoryWords()) {
+            Word word = dictionaryManagement.dictionaryLookup(s);
+            listViewHistory.getItems().add(word.getWordTarget() + "\n" + word.getPhonetic());
+        }
+    }
+
+    public void refreshListViewFavourite() {
+        listViewFavourite.getItems().clear();
+        for (String s : dictionaryManagement.getFavouriteWords()) {
+            Word word = dictionaryManagement.dictionaryLookup(s);
+            listViewFavourite.getItems().add(word.getWordTarget() + "\n" + word.getPhonetic());
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dictionaryManagement.insertFromFile();
+        dictionaryManagement.loadDataFromFile();
+        refreshListViewHistory();
+        refreshListViewFavourite();
         listViewSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -173,17 +193,34 @@ public class DictionaryController implements Initializable {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                     String wordTarget = addInput.getText();
                     String wordExplain = addDefinition.getText();
+                    String wordPhonetic = addPhonetic.getText();
                     String statusMsg = "";
                     addStatus.setTextFill(Color.color(1, 0, 0));
                     if (wordTarget == null || wordTarget.isBlank()) statusMsg += "Word Target is empty.\n";
                     if (wordExplain == null || wordExplain.isBlank()) statusMsg += "Word Explain is empty.\n";
+                    if (wordPhonetic == null || wordPhonetic.isBlank()) statusMsg += "Word Phonetic is empty.\n";
                     if (dictionaryManagement.isExisted(wordTarget)) statusMsg += "Word is existed\n";
                     if (statusMsg.isBlank()) {
-                        dictionaryManagement.addWord(new Word(wordTarget, wordExplain));
+                        dictionaryManagement.addWord(new Word(wordTarget, wordExplain, wordPhonetic));
                         statusMsg += "Adding successfully!";
                         addStatus.setTextFill(Color.color(0, 1, 0));
                     }
                     addStatus.setText(statusMsg);
+                }
+            }
+        });
+        buttonFavorite.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    if(wordLabel.getText().isBlank()){
+                        buttonFavorite.setSelected(false);
+                    }else
+                    if (buttonFavorite.isSelected()) {
+                        updateFavouriteWords(wordLabel.getText());
+                    } else {
+                        removeFavouriteWords(wordLabel.getText());
+                    }
                 }
             }
         });
@@ -193,15 +230,17 @@ public class DictionaryController implements Initializable {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                     String wordTarget = editInput.getText();
                     String wordExplain = editDefinition.getText();
+                    String wordPhonetic = editPhonetic.getText();
                     String statusMsg = "";
                     editStatus.setTextFill(Color.color(1, 0, 0));
                     if (wordTarget == null || wordTarget.isBlank()) statusMsg += "Word Target is empty.\n";
                     if (!dictionaryManagement.isExisted(wordTarget) && wordTarget != null)
                         statusMsg += "Word is not existed\n";
                     if (wordExplain == null || wordExplain.isBlank()) statusMsg += "Word Explain is empty.\n";
+                    if (wordPhonetic == null || wordPhonetic.isBlank()) statusMsg += "Word Phonetic is empty.\n";
                     if (statusMsg.isBlank()) {
                         dictionaryManagement.removeWord(wordTarget);
-                        dictionaryManagement.addWord(new Word(wordTarget, wordExplain));
+                        dictionaryManagement.addWord(new Word(wordTarget, wordExplain, wordPhonetic));
                         statusMsg += "Editing successfully!";
                         editStatus.setTextFill(Color.color(0, 1, 0));
                     }
@@ -216,6 +255,7 @@ public class DictionaryController implements Initializable {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                     String wordTarget = removeInput.getText();
                     String wordExplain = removeDefinition.getText();
+                    String wordPhonetic = removePhonetic.getText();
                     String statusMsg = "";
                     removeStatus.setTextFill(Color.color(1, 0, 0));
                     if (wordTarget == null || wordTarget.isBlank()) statusMsg += "Word Target is empty.\n";
@@ -365,7 +405,6 @@ public class DictionaryController implements Initializable {
                 }
             }
         });
-
-
     }
+
 }
