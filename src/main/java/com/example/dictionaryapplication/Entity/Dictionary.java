@@ -1,4 +1,4 @@
-package com.example.dictionaryapplicaton.Entity;
+package com.example.dictionaryapplication.Entity;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.dictionaryapplicaton.Entity;
+package com.example.dictionaryapplication.Entity;
 
 public class Word {
     private String wordTarget;

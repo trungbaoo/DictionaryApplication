@@ -1,4 +1,4 @@
-package com.example.dictionaryapplicaton.Entity;
+package com.example.dictionaryapplication.Entity;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,7 +35,7 @@ public class DictionaryManagement {
 
     public void insertFromFileDict() {
         try {
-            String content = readFile("src/main/resources/com/example/dictionaryapplicaton/defaultDictionary.dict", Charset.defaultCharset());
+            String content = readFile("src/main/resources/defaultDictionary.dict", Charset.defaultCharset());
             String[] words = content.split("@");
             for (String word : words) {
                 String result[] = word.split("\r?\n", 2);
@@ -100,7 +100,7 @@ public class DictionaryManagement {
 
     public void loadHistoryWords() {
         try {
-            Scanner scanner = new Scanner(new File("src/main/resources/com/example/dictionaryapplicaton/history.txt"));
+            Scanner scanner = new Scanner(new File("src/main/resources/history.txt"));
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 Word word = dictionaryLookup(s);
@@ -115,7 +115,7 @@ public class DictionaryManagement {
 
     public void exportHistoryWord() {
         try {
-            FileWriter fileWriter = new FileWriter(new File("src/main/resources/com/example/dictionaryapplicaton/history.txt"));
+            FileWriter fileWriter = new FileWriter(new File("src/main/resources/history.txt"));
             for (String s : getHistoryWords()) {
                 fileWriter.write(s + "\n");
             }
@@ -126,7 +126,7 @@ public class DictionaryManagement {
     }
     public void loadFavouriteWords() {
         try {
-            Scanner scanner = new Scanner(new File("src/main/resources/com/example/dictionaryapplicaton/favourite.txt"));
+            Scanner scanner = new Scanner(new File("src/main/resources/favourite.txt"));
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 Word word = dictionaryLookup(s);
@@ -141,7 +141,7 @@ public class DictionaryManagement {
 
     public void exportFavouriteWord() {
         try {
-            FileWriter fileWriter = new FileWriter(new File("src/main/resources/com/example/dictionaryapplicaton/favourite.txt"));
+            FileWriter fileWriter = new FileWriter(new File("src/main/resources/favourite.txt"));
             for (String s : getFavouriteWords()) {
                 fileWriter.write(s + "\n");
             }

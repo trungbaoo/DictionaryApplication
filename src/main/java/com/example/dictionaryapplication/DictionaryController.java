@@ -1,8 +1,12 @@
-package com.example.dictionaryapplicaton;
+package com.example.dictionaryapplication;
 
 
-import com.example.dictionaryapplicaton.Entity.DictionaryManagement;
-import com.example.dictionaryapplicaton.Entity.Word;
+import com.example.dictionaryapplication.Entity.DictionaryManagement;
+import com.example.dictionaryapplication.Entity.Word;
+import com.example.dictionaryapplication.model.Sentences;
+import com.example.dictionaryapplication.model.TranslatedOutput;
+import com.example.dictionaryapplication.model.UserInput;
+import com.example.dictionaryapplication.service.TranslationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,13 +18,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+@Component
+@FxmlView("/app.fxml")
 public class DictionaryController implements Initializable {
     public static DictionaryManagement dictionaryManagement = new DictionaryManagement();
+    @Autowired
+    public TranslationService translationService;
     @FXML
     private Button addButton, editButton, removeButton;
     @FXML
@@ -108,15 +119,19 @@ public class DictionaryController implements Initializable {
     }
 
     public void lookup() {
-        Word word = dictionaryManagement.dictionaryLookup(searchInput.getText());
-        if (word != null) {
-            definitionSearch.setText(word.getWordExplain());
-            searchPhonetic.setText(word.getPhonetic());
-            updateHistoryWords(word.getWordTarget());
-            wordLabel.setText(word.getWordTarget());
-            buttonFavorite.setSelected(dictionaryManagement.isFavouriteWords(searchInput.getText()));
+//        Word word = dictionaryManagement.dictionaryLookup(searchInput.getText());
+//        if (word != null) {
+//            definitionSearch.setText(word.getWordExplain());
+//            searchPhonetic.setText(word.getPhonetic());
+//            updateHistoryWords(word.getWordTarget());
+//            wordLabel.setText(word.getWordTarget());
+//            buttonFavorite.setSelected(dictionaryManagement.isFavouriteWords(searchInput.getText()));
+//        }
+        TranslatedOutput output = translationService.translateInput(new UserInput("vi", "en", searchInput.getText()));
+        if(null != output && output.getSentences().size() > 0) {
+            Sentences sentence = output.getSentences().get(0);
+            definitionSearch.setText(sentence.getTrans());
         }
-
     }
 
     public void lookup1() {
@@ -196,11 +211,11 @@ public class DictionaryController implements Initializable {
                     String wordPhonetic = addPhonetic.getText();
                     String statusMsg = "";
                     addStatus.setTextFill(Color.color(1, 0, 0));
-                    if (wordTarget == null || wordTarget.isBlank()) statusMsg += "Word Target is empty.\n";
-                    if (wordExplain == null || wordExplain.isBlank()) statusMsg += "Word Explain is empty.\n";
-                    if (wordPhonetic == null || wordPhonetic.isBlank()) statusMsg += "Word Phonetic is empty.\n";
+                    if (wordTarget == null || wordTarget.isEmpty()) statusMsg += "Word Target is empty.\n";
+                    if (wordExplain == null || wordExplain.isEmpty()) statusMsg += "Word Explain is empty.\n";
+                    if (wordPhonetic == null || wordPhonetic.isEmpty()) statusMsg += "Word Phonetic is empty.\n";
                     if (dictionaryManagement.isExisted(wordTarget)) statusMsg += "Word is existed\n";
-                    if (statusMsg.isBlank()) {
+                    if (statusMsg.isEmpty()) {
                         dictionaryManagement.addWord(new Word(wordTarget, wordExplain, wordPhonetic));
                         statusMsg += "Adding successfully!";
                         addStatus.setTextFill(Color.color(0, 1, 0));
@@ -213,7 +228,7 @@ public class DictionaryController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    if(wordLabel.getText().isBlank()){
+                    if(wordLabel.getText().isEmpty()){
                         buttonFavorite.setSelected(false);
                     }else
                     if (buttonFavorite.isSelected()) {
@@ -233,12 +248,12 @@ public class DictionaryController implements Initializable {
                     String wordPhonetic = editPhonetic.getText();
                     String statusMsg = "";
                     editStatus.setTextFill(Color.color(1, 0, 0));
-                    if (wordTarget == null || wordTarget.isBlank()) statusMsg += "Word Target is empty.\n";
+                    if (wordTarget == null || wordTarget.isEmpty()) statusMsg += "Word Target is empty.\n";
                     if (!dictionaryManagement.isExisted(wordTarget) && wordTarget != null)
                         statusMsg += "Word is not existed\n";
-                    if (wordExplain == null || wordExplain.isBlank()) statusMsg += "Word Explain is empty.\n";
-                    if (wordPhonetic == null || wordPhonetic.isBlank()) statusMsg += "Word Phonetic is empty.\n";
-                    if (statusMsg.isBlank()) {
+                    if (wordExplain == null || wordExplain.isEmpty()) statusMsg += "Word Explain is empty.\n";
+                    if (wordPhonetic == null || wordPhonetic.isEmpty()) statusMsg += "Word Phonetic is empty.\n";
+                    if (statusMsg.isEmpty()) {
                         dictionaryManagement.removeWord(wordTarget);
                         dictionaryManagement.addWord(new Word(wordTarget, wordExplain, wordPhonetic));
                         statusMsg += "Editing successfully!";
@@ -258,9 +273,9 @@ public class DictionaryController implements Initializable {
                     String wordPhonetic = removePhonetic.getText();
                     String statusMsg = "";
                     removeStatus.setTextFill(Color.color(1, 0, 0));
-                    if (wordTarget == null || wordTarget.isBlank()) statusMsg += "Word Target is empty.\n";
+                    if (wordTarget == null || wordTarget.isEmpty()) statusMsg += "Word Target is empty.\n";
                     if (!dictionaryManagement.isExisted(wordTarget)) statusMsg += "Word is not existed\n";
-                    if (statusMsg.isBlank()) {
+                    if (statusMsg.isEmpty()) {
                         dictionaryManagement.removeWord(wordTarget);
                         statusMsg += "Removing successfully!";
                         removeStatus.setTextFill(Color.color(0, 1, 0));

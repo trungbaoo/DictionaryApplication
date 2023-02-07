@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dictionaryapplicaton.DictionaryController">
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dictionaryapplication.DictionaryController">
    <children>
       <TabPane prefHeight="281.0" prefWidth="549.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="100.0" tabMaxWidth="100.0" tabMinHeight="100.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -217,13 +217,23 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="39.0" layoutY="435.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="158.0" text="Save" />
+                        <TextArea fx:id="inputSentence" layoutX="30.0" layoutY="70.0" prefHeight="200.0" prefWidth="433.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="90.0" />
+                        <TextArea fx:id="outputSentence" layoutX="33.0" layoutY="300.0" prefHeight="200.0" prefWidth="435.0" promptText="Bản dịch" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="310.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextArea>
+                        <Label alignment="CENTER" layoutX="111.0" layoutY="42.0" prefHeight="40.0" prefWidth="167.0" text="Dịch văn bản" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+                           <font>
+                              <Font name="System Bold" size="27.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
                </content>
                <graphic>
-                  <ImageView fx:id="iconSetting" fitHeight="70.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconTranslate" fitHeight="70.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Icon/setting.png" />
+                        <Image url="@Icon/translate.png" />
                      </image>
                   </ImageView>
                </graphic>
