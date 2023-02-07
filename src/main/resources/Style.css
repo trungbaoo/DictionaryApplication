@@ -62,13 +62,16 @@
     -fx-border-width: 0 0 0 0;
 }
 
-.toggle-button {
+#buttonFavorite {
     /*-fx-background-size: 18px;*/
     -fx-background-color: inherit;
     -fx-background-image: url("Icon/inactive.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-.toggle-button:selected {
+#buttonFavorite:selected {
+    -fx-background-image: url("Icon/active.png");
+}
+#buttonFavorite:selected {
     -fx-background-image: url("Icon/active.png");
 }

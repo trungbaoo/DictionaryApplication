@@ -33,15 +33,15 @@ public class DictionaryController implements Initializable {
     @Autowired
     public TranslationService translationService;
     @FXML
-    private Button addButton, editButton, removeButton;
+    private Button addButton, editButton, removeButton, buttonTranslate;
     @FXML
-    private ToggleButton buttonFavorite;
+    private ToggleButton buttonFavorite, buttonLanguage;
     @FXML
     private TextField searchInput, addInput, removeInput, editInput;
     @FXML
     public ListView<String> listViewSearch = new ListView<>(), listViewEdit = new ListView<>(), listViewHistory = new ListView<>(), listViewAdd = new ListView<>(), listViewRemove = new ListView<>(), listViewFavourite = new ListView<>();
     @FXML
-    private TextArea definitionSearch = new TextArea(), addDefinition = new TextArea(), removeDefinition = new TextArea(), editDefinition = new TextArea();
+    private TextArea definitionSearch = new TextArea(), addDefinition = new TextArea(), removeDefinition = new TextArea(), editDefinition = new TextArea(), inputSentence = new TextArea(), outputSentence = new TextArea();
     @FXML
     private Label addStatus, removeStatus, editStatus, wordLabel;
     @FXML
@@ -119,19 +119,15 @@ public class DictionaryController implements Initializable {
     }
 
     public void lookup() {
-//        Word word = dictionaryManagement.dictionaryLookup(searchInput.getText());
-//        if (word != null) {
-//            definitionSearch.setText(word.getWordExplain());
-//            searchPhonetic.setText(word.getPhonetic());
-//            updateHistoryWords(word.getWordTarget());
-//            wordLabel.setText(word.getWordTarget());
-//            buttonFavorite.setSelected(dictionaryManagement.isFavouriteWords(searchInput.getText()));
-//        }
-        TranslatedOutput output = translationService.translateInput(new UserInput("vi", "en", searchInput.getText()));
-        if(null != output && output.getSentences().size() > 0) {
-            Sentences sentence = output.getSentences().get(0);
-            definitionSearch.setText(sentence.getTrans());
+        Word word = dictionaryManagement.dictionaryLookup(searchInput.getText());
+        if (word != null) {
+            definitionSearch.setText(word.getWordExplain());
+            searchPhonetic.setText(word.getPhonetic());
+            updateHistoryWords(word.getWordTarget());
+            wordLabel.setText(word.getWordTarget());
+            buttonFavorite.setSelected(dictionaryManagement.isFavouriteWords(searchInput.getText()));
         }
+
     }
 
     public void lookup1() {
@@ -224,14 +220,26 @@ public class DictionaryController implements Initializable {
                 }
             }
         });
+        buttonLanguage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    if (buttonLanguage.isSelected()) {
+                        buttonLanguage.setText("Anh - Việt");
+                    } else {
+                        buttonLanguage.setText("Việt - Anh");
+                    }
+                }
+            }
+
+        });
         buttonFavorite.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    if(wordLabel.getText().isEmpty()){
+                    if (wordLabel.getText().isEmpty()) {
                         buttonFavorite.setSelected(false);
-                    }else
-                    if (buttonFavorite.isSelected()) {
+                    } else if (buttonFavorite.isSelected()) {
                         updateFavouriteWords(wordLabel.getText());
                     } else {
                         removeFavouriteWords(wordLabel.getText());
@@ -281,6 +289,22 @@ public class DictionaryController implements Initializable {
                         removeStatus.setTextFill(Color.color(0, 1, 0));
                     }
                     removeStatus.setText(statusMsg);
+                }
+            }
+        });
+        buttonTranslate.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    TranslatedOutput output;
+                    if (buttonLanguage.isSelected())
+                        output = translationService.translateInput(new UserInput("en", "vi", inputSentence.getText()));
+                    else
+                        output = translationService.translateInput(new UserInput("vi", "en", inputSentence.getText()));
+                    if (null != output && output.getSentences().size() > 0) {
+                        Sentences sentence = output.getSentences().get(0);
+                        outputSentence.setText(sentence.getTrans());
+                    }
                 }
             }
         });
