@@ -1,9 +1,0 @@
-hello	xin chao
-hi	xin chao
-dog	cho
-cat	meo
-hat	mu
-hair	toc
-head	dau
-hockey	khuc con cau
-horror	rung ron
