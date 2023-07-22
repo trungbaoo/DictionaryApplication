@@ -302,8 +302,12 @@ public class DictionaryController implements Initializable {
                     else
                         output = translationService.translateInput(new UserInput("vi", "en", inputSentence.getText()));
                     if (null != output && output.getSentences().size() > 0) {
-                        Sentences sentence = output.getSentences().get(0);
-                        outputSentence.setText(sentence.getTrans());
+                        String translate="";
+                        for (int line = 0; line < output.getSentences().size(); line++) {
+                            Sentences sentence = output.getSentences().get(line);
+                            translate=translate+sentence.getTrans();
+                        }
+                        outputSentence.setText(translate);
                     }
                 }
             }

@@ -217,10 +217,13 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="inputSentence" layoutX="30.0" layoutY="70.0" prefHeight="200.0" prefWidth="433.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="90.0" />
-                        <TextArea fx:id="outputSentence" layoutX="30.0" layoutY="339.0" prefHeight="200.0" prefWidth="435.0" promptText="Bản dịch" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="339.0">
+                        <TextArea fx:id="inputSentence" layoutX="22.0" layoutY="82.0" prefHeight="200.0" prefWidth="433.0" wrapText="true" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="82.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="16.0" />
+                           </font></TextArea>
+                        <TextArea fx:id="outputSentence" editable="false" layoutX="30.0" layoutY="339.0" prefHeight="200.0" prefWidth="435.0" promptText="Bản dịch" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="339.0">
+                           <font>
+                              <Font size="16.0" />
                            </font>
                         </TextArea>
                         <Label alignment="CENTER" layoutX="111.0" layoutY="42.0" prefHeight="40.0" prefWidth="167.0" text="Dịch văn bản" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
