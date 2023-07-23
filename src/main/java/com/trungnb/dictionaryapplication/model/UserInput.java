@@ -1,4 +1,4 @@
-package com.example.dictionaryapplication.model;
+package com.trungnb.dictionaryapplication.model;
 
 public class UserInput {
 

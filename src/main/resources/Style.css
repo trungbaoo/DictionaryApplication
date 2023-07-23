@@ -1,4 +1,94 @@
-.labelShow{
+.root {
+    -fx-font-family: "Roboto";
+}
+#searchPane{
+    -fx-background-image: url("Background/background(1).png");
+}
+#listViewHistory{
+    -fx-background-color: transparent;
+}
+#listViewFavourite{
+    -fx-background-color: transparent;
+}
+#searchAnchorPane{
+    -fx-opacity: 0.5;
+}
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+}
+#definitionAnchorPane{
+    -fx-opacity: 0.85;
+}
+#historyPane{
+    -fx-background-image: url("Background/background.png");
+}
+#translatePane{
+    -fx-background-image: url("Background/background(3).png");
+}
+#favouritePane{
+    -fx-background-image: url("Background/background.png");
+}
+#addPane{
+    -fx-background-image: url("Background/background(2).png");
+}
+#removePane{
+    -fx-background-image: url("Background/background(2).png");
+}
+#editPane{
+    -fx-background-image: url("Background/background(2).png");
+}
+.vbox{
+    -fx-background-color: transparent;
+}
+#addInput{
+    -fx-opacity: 0.75;
+}
+#inputSentence{
+    -fx-opacity: 0.75;
+}
+#outputSentence{
+    -fx-opacity: 0.75;
+}
+#removeInput{
+    -fx-opacity: 0.75;
+}
+#editInput{
+    -fx-opacity: 0.75;
+}
+#listViewAdd{
+    -fx-opacity: 0.75;
+}
+#listViewEdit{
+    -fx-opacity: 0.75;
+}
+#listViewRemove{
+    -fx-opacity: 0.75;
+}
+#addPhonetic{
+    -fx-opacity: 0.75;
+}
+#editPhonetic{
+    -fx-opacity: 0.75;
+}
+#removePhonetic{
+    -fx-opacity: 0.75;
+}
+#addDefinition{
+    -fx-opacity: 0.75;
+}
+#editDefinition{
+    -fx-opacity: 0.75;
+}
+#removeDefinition{
+    -fx-opacity: 0.75;
+}
+#definitionSearch{
+    -fx-opacity: 0.75;
+}
+#searchPhonetic{
+    -fx-opacity: 0.75;
+}
+#labelShow{
     -fx-background-color: #4db6ac;
 }
 .tab-pane {

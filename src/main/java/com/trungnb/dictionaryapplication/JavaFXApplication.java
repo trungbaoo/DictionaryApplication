@@ -1,4 +1,4 @@
-package com.example.dictionaryapplication;
+package com.trungnb.dictionaryapplication;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,14 +7,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import static com.example.dictionaryapplication.DictionaryController.dictionaryManagement;
-
 public class JavaFXApplication extends Application {
     private ConfigurableApplicationContext applicationContext;
 
     @Override
     public void init() {
-
         applicationContext = new SpringApplicationBuilder(DictionaryApplication.class).run();
     }
 
@@ -25,8 +22,8 @@ public class JavaFXApplication extends Application {
 
     @Override
     public void stop() {
-        dictionaryManagement.exportHistoryWord();
-        dictionaryManagement.exportFavouriteWord();
+        DictionaryController.dictionaryManagement.exportHistoryWord();
+        DictionaryController.dictionaryManagement.exportFavouriteWord();
         applicationContext.close();
         Platform.exit();
     }

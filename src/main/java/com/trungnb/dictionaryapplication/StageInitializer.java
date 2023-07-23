@@ -1,18 +1,12 @@
-package com.example.dictionaryapplication;
+package com.trungnb.dictionaryapplication;
 
-import com.example.dictionaryapplication.JavaFXApplication.StageReadyEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import com.trungnb.dictionaryapplication.JavaFXApplication.StageReadyEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-
-import static com.example.dictionaryapplication.DictionaryController.dictionaryManagement;
 
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
@@ -29,7 +23,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     public void onApplicationEvent(StageReadyEvent event) {
         Stage stage = event.getStage();
         Scene scene = new Scene(fxWeaver.loadView(DictionaryController.class), 600, 600);
-        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         stage.setResizable(false);
 
         stage.setScene(scene);

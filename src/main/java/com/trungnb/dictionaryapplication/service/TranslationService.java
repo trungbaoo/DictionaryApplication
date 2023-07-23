@@ -1,9 +1,9 @@
-package com.example.dictionaryapplication.service;
+package com.trungnb.dictionaryapplication.service;
 
 import java.util.Collections;
 
-import com.example.dictionaryapplication.model.TranslatedOutput;
-import com.example.dictionaryapplication.model.UserInput;
+import com.trungnb.dictionaryapplication.model.TranslatedOutput;
+import com.trungnb.dictionaryapplication.model.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;

@@ -1,4 +1,4 @@
-package com.example.dictionaryapplication.Entity;
+package com.trungnb.dictionaryapplication.Entity;
 
 public class Word {
     private String wordTarget;

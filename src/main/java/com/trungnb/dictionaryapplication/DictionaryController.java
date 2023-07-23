@@ -1,12 +1,12 @@
-package com.example.dictionaryapplication;
+package com.trungnb.dictionaryapplication;
 
 
-import com.example.dictionaryapplication.Entity.DictionaryManagement;
-import com.example.dictionaryapplication.Entity.Word;
-import com.example.dictionaryapplication.model.Sentences;
-import com.example.dictionaryapplication.model.TranslatedOutput;
-import com.example.dictionaryapplication.model.UserInput;
-import com.example.dictionaryapplication.service.TranslationService;
+import com.trungnb.dictionaryapplication.Entity.DictionaryManagement;
+import com.trungnb.dictionaryapplication.Entity.Word;
+import com.trungnb.dictionaryapplication.model.Sentences;
+import com.trungnb.dictionaryapplication.model.TranslatedOutput;
+import com.trungnb.dictionaryapplication.model.UserInput;
+import com.trungnb.dictionaryapplication.service.TranslationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -305,9 +305,13 @@ public class DictionaryController implements Initializable {
                         String translate="";
                         for (int line = 0; line < output.getSentences().size(); line++) {
                             Sentences sentence = output.getSentences().get(line);
+                            if(sentence.getTrans()==null){
+                                break;
+                            }
                             translate=translate+sentence.getTrans();
                         }
                         outputSentence.setText(translate);
+//                        outputSentence.setText(output.getSentences().get(0).getTrans());
                     }
                 }
             }

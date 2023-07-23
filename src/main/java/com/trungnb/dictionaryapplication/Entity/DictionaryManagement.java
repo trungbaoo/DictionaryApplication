@@ -1,9 +1,11 @@
-package com.example.dictionaryapplication.Entity;
+package com.trungnb.dictionaryapplication.Entity;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -12,22 +14,6 @@ import java.util.Scanner;
 public class DictionaryManagement {
     public static Dictionary dictionary = new Dictionary();
     public static Scanner scanner = new Scanner(System.in);
-
-    //    public void insertFromFile() {
-//        File file = new File("src/main/resources/com/example/dictionaryapplicaton/dictionaries.txt");
-//        try {
-//            Scanner sc = new Scanner(file);
-//            while (sc.hasNext()) {
-//                String line = sc.nextLine();
-//                String[] s = line.split("\t");
-//                dictionary.words.add(new Word(s[0], s[1]));
-//                System.out.println(s[0] + " " + s[1]);
-//            }
-//            System.out.println("Them tu file thanh cong");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
     public static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
@@ -35,7 +21,7 @@ public class DictionaryManagement {
 
     public void insertFromFileDict() {
         try {
-            String content = readFile("src/main/resources/defaultDictionary.dict", Charset.defaultCharset());
+            String content = readFile("src/main/resources/defaultDictionary.dict", StandardCharsets.UTF_8);
             String[] words = content.split("@");
             for (String word : words) {
                 String result[] = word.split("\r?\n", 2);
